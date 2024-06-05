@@ -80,6 +80,9 @@ function create() {
     upperPipe = this.physics.add.sprite(pipeHorizontalDistance, pipeVerticalPosition, 'pipe').setOrigin(0,1);
     lowerPipe = this.physics.add.sprite(upperPipe.x, upperPipe.y + pipeVerticalDistance, 'pipe').setOrigin(0,0);
   
+    upperPipe.body.velocity.x = -200;
+    lowerPipe.body.velocity.x = -200;
+
   }
 
   

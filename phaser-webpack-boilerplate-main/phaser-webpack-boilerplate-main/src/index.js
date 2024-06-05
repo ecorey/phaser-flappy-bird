@@ -15,6 +15,7 @@ const config = {
   scene: {
     preload,
     create,
+    update
   }
 }
 
@@ -33,6 +34,8 @@ function preload() {
 
 
 let bird = null;
+let totalDelta = null;
+
 
 function create() {
 
@@ -42,7 +45,33 @@ function create() {
   
   // pulls bird down and off screen
   bird.body.gravity.y = 200;
+ 
   
+}
+
+
+// t0 = 0px/s
+// t1 = 200px/s
+// t2 = 400px/s
+// t3 = 600px/s
+
+
+
+
+
+// default arounf 60 fps
+function update(time, delta) {
+  
+
+  if(totalDelta >= 1000) {
+    console.log(bird.body.velocity.y);
+    totalDelta = 0;
+  }
+
+  totalDelta = totalDelta + delta;
+  
+
+
 }
 
 

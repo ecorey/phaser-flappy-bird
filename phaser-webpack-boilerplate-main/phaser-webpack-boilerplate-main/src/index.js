@@ -36,6 +36,7 @@ let lowerPipe = null;
 let pipeOpeningDistanceRange = [100, 250];
 // sets a random variable in the range given
 let pipeVerticalDistance = Phaser.Math.Between(pipeOpeningDistanceRange[0], pipeOpeningDistanceRange[1]);
+let pipeVerticalPosition = Phaser.Math.Between(0 + 20, config.height - 20 - pipeVerticalDistance);
 
 
 let totalDelta = null;
@@ -67,7 +68,7 @@ function create() {
   // bird.body.velocity.x = VELOCITY;
 
 
-  upperPipe = this.physics.add.sprite(400, 100, 'pipe').setOrigin(0,1);
+  upperPipe = this.physics.add.sprite(400, pipeVerticalPosition, 'pipe').setOrigin(0,1);
   lowerPipe = this.physics.add.sprite(400, upperPipe.y + pipeVerticalDistance, 'pipe').setOrigin(0,0);
 
 

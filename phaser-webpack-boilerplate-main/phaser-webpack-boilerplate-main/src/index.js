@@ -12,7 +12,8 @@ const config = {
     // Arcade physics plugin
     default: 'arcade',
     arcade: {
-      // gravity: { y: 200 },
+      debug: true,
+      gravity: { y: 400 },
     }
   },
   scene: {
@@ -37,7 +38,7 @@ function preload() {
 
 
 const VELOCITY = 200;
-
+let flapVelocity = 250;
 let bird = null;
 let totalDelta = null;
 
@@ -48,8 +49,15 @@ function create() {
 
   bird = this.physics.add.sprite(config.width / 16, config.height / 2, 'bird').setOrigin(0);
   
-  bird.body.velocity.x = VELOCITY;
 
+
+  // pressing mouse button
+  this.input.on('pointerdown', flap);
+
+
+  // pressing space bar
+  this.input.keyboard.on('keydown_SPACE',flap);
+ 
  
 }
 
@@ -62,23 +70,13 @@ function create() {
 // if bird poistion x same or larger than width go left
 // if bird poistion x same or smaller than 0 go right
 function update(time, delta) {
-  
-  if (bird.x >= config.width - bird.width) {
-    bird.body.velocity.x = -VELOCITY;
-
-  } else if (bird.x <= 0 ) {
-    bird.body.velocity.x = VELOCITY;
-  }
-
-  
-
-
-
 
 }
 
 
-
+function flap() {
+  bird.body.velocity.y = -flapVelocity;
+}
 
 
 

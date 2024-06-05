@@ -9,7 +9,7 @@ const config = {
   width: 800, 
   height: 600,
   physics: {
-    // Arcade physics plugin
+    // arcade physics plugin
     default: 'arcade',
     arcade: {
       debug: true,
@@ -38,7 +38,8 @@ function preload() {
 
 
 const VELOCITY = 200;
-let flapVelocity = 3000;
+const flapVelocity = 150;
+const initialBirdPosition = { x: config.width / 16, y: config.height / 2 };
 let bird = null;
 let totalDelta = null;
 
@@ -47,7 +48,7 @@ function create() {
 
   this.add.image(0, 0, 'sky').setOrigin(0);
 
-  bird = this.physics.add.sprite(config.width / 16, config.height / 2, 'bird').setOrigin(0);
+  bird = this.physics.add.sprite(initialBirdPosition.x, initialBirdPosition.y, 'bird').setOrigin(0);
   
   // bird.body.velocity.x = VELOCITY;
 
@@ -62,26 +63,41 @@ function create() {
  
 }
 
-// t0 = 0px/s
-// t1 = 200px/s
-// t2 = 400px/s
-// t3 = 600px/s
 
 
 
-// if bird postion is small than 0 or greater than height of the canvas
-// alert 'you lost the game'
+
+
+
 function update(time, delta) {
 
-  
-  
+  if(bird.y > config.height || bird.y < -bird.height) {
+    restartBirdPosition();
+  }
 
+  
 }
 
 
-// move left and right 
-// comment out the gravity in physics
-// set bird.body.velocity.x to VELOCITY in the create function
+
+
+// // if bird postion is small than 0 or greater than height of the canvas
+// // restart the bird position to the initial position
+// function update(time, delta) {
+
+//   if(bird.y > config.height || bird.y < -bird.height) {
+//     restartBirdPosition();
+//   }
+
+  
+// }
+
+
+
+
+// // move left and right 
+// // comment out the gravity in physics
+// // set bird.body.velocity.x to VELOCITY in the create function
 // function update(time, delta) {
 
 //   if(bird.x >= config.width - bird.width) {
@@ -95,8 +111,23 @@ function update(time, delta) {
 
 
 
+// to make the bird flap
 function flap() {
   bird.body.velocity.y = -flapVelocity;
+}
+
+
+
+
+// restart the bird position to the initial position
+function restartBirdPosition() {
+
+  bird.x = initialBirdPosition.x;
+  bird.y = initialBirdPosition.y;
+
+  bird.body.velocity.y = 0;
+  
+
 }
 
 

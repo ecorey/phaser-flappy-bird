@@ -38,7 +38,7 @@ function preload() {
 
 
 const VELOCITY = 200;
-let flapVelocity = 250;
+let flapVelocity = 3000;
 let bird = null;
 let totalDelta = null;
 
@@ -49,6 +49,7 @@ function create() {
 
   bird = this.physics.add.sprite(config.width / 16, config.height / 2, 'bird').setOrigin(0);
   
+  // bird.body.velocity.x = VELOCITY;
 
 
   // pressing mouse button
@@ -67,11 +68,31 @@ function create() {
 // t3 = 600px/s
 
 
-// if bird poistion x same or larger than width go left
-// if bird poistion x same or smaller than 0 go right
+
+// if bird postion is small than 0 or greater than height of the canvas
+// alert 'you lost the game'
 function update(time, delta) {
 
+  
+  
+
 }
+
+
+// move left and right 
+// comment out the gravity in physics
+// set bird.body.velocity.x to VELOCITY in the create function
+// function update(time, delta) {
+
+//   if(bird.x >= config.width - bird.width) {
+//     bird.body.velocity.x = -VELOCITY;
+//   } else if (bird.x <= 0) {
+//     bird.body.velocity.x = VELOCITY;
+//   }
+
+// }
+
+
 
 
 function flap() {

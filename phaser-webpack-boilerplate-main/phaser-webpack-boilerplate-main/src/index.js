@@ -26,17 +26,20 @@ const config = {
 
 
 const VELOCITY = 200;
+const PIPES_TO_RENDER = 4;
+
 const flapVelocity = 150;
 const initialBirdPosition = { x: config.width / 16, y: config.height / 2 };
 
 let bird = null;
 let upperPipe = null;
 let lowerPipe = null;
+let pipeHorizontalDistance = 0;
 
 let pipeOpeningDistanceRange = [100, 250];
 // sets a random variable in the range given
-let pipeVerticalDistance = Phaser.Math.Between(pipeOpeningDistanceRange[0], pipeOpeningDistanceRange[1]);
-let pipeVerticalPosition = Phaser.Math.Between(0 + 20, config.height - 20 - pipeVerticalDistance);
+
+
 
 
 let totalDelta = null;
@@ -67,10 +70,20 @@ function create() {
   
   // bird.body.velocity.x = VELOCITY;
 
+  for(let i = 0; i < PIPES_TO_RENDER; i++) {
 
-  upperPipe = this.physics.add.sprite(400, pipeVerticalPosition, 'pipe').setOrigin(0,1);
-  lowerPipe = this.physics.add.sprite(400, upperPipe.y + pipeVerticalDistance, 'pipe').setOrigin(0,0);
+    pipeHorizontalDistance += 400;
 
+    let pipeVerticalDistance = Phaser.Math.Between(pipeOpeningDistanceRange[0], pipeOpeningDistanceRange[1]);
+    let pipeVerticalPosition = Phaser.Math.Between(0 + 20, config.height - 20 - pipeVerticalDistance);
+
+    upperPipe = this.physics.add.sprite(pipeHorizontalDistance, pipeVerticalPosition, 'pipe').setOrigin(0,1);
+    lowerPipe = this.physics.add.sprite(upperPipe.x, upperPipe.y + pipeVerticalDistance, 'pipe').setOrigin(0,0);
+  
+  }
+
+  
+  
 
 
   // pressing mouse button

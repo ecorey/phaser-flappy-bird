@@ -25,6 +25,22 @@ const config = {
 
 
 
+const VELOCITY = 200;
+const flapVelocity = 150;
+const initialBirdPosition = { x: config.width / 16, y: config.height / 2 };
+
+let bird = null;
+let upperPipe = null;
+let lowerPipe = null;
+
+let pipeOpeningDistanceRange = [100, 250];
+// sets a random variable in the range given
+let pipeVerticalDistance = Phaser.Math.Between(pipeOpeningDistanceRange[0], pipeOpeningDistanceRange[1]);
+
+
+let totalDelta = null;
+
+
 
 function preload() { 
   
@@ -36,14 +52,6 @@ function preload() {
 
 }
 
-
-const VELOCITY = 200;
-const flapVelocity = 150;
-const initialBirdPosition = { x: config.width / 16, y: config.height / 2 };
-let bird = null;
-let upperPipe = null;
-let lowerPipe = null;
-let totalDelta = null;
 
 
 function create() {
@@ -60,8 +68,7 @@ function create() {
 
 
   upperPipe = this.physics.add.sprite(400, 100, 'pipe').setOrigin(0,1);
-
-  lowerrPipe = this.physics.add.sprite(400, upperPipe.y + 100, 'pipe').setOrigin(0,0);
+  lowerPipe = this.physics.add.sprite(400, upperPipe.y + pipeVerticalDistance, 'pipe').setOrigin(0,0);
 
 
 

@@ -11,6 +11,9 @@ const config = {
   physics: {
     // Arcade physics plugin
     default: 'arcade',
+    arcade: {
+      // gravity: { y: 200 },
+    }
   },
   scene: {
     preload,
@@ -33,6 +36,8 @@ function preload() {
 }
 
 
+const VELOCITY = 200;
+
 let bird = null;
 let totalDelta = null;
 
@@ -43,12 +48,10 @@ function create() {
 
   bird = this.physics.add.sprite(config.width / 16, config.height / 2, 'bird').setOrigin(0);
   
-  // pulls bird down and off screen
-  bird.body.gravity.y = 200;
- 
-  
-}
+  bird.body.velocity.x = VELOCITY;
 
+ 
+}
 
 // t0 = 0px/s
 // t1 = 200px/s
@@ -56,20 +59,20 @@ function create() {
 // t3 = 600px/s
 
 
-
-
-
-// default arounf 60 fps
+// if bird poistion x same or larger than width go left
+// if bird poistion x same or smaller than 0 go right
 function update(time, delta) {
   
+  if (bird.x >= config.width - bird.width) {
+    bird.body.velocity.x = -VELOCITY;
 
-  if(totalDelta >= 1000) {
-    console.log(bird.body.velocity.y);
-    totalDelta = 0;
+  } else if (bird.x <= 0 ) {
+    bird.body.velocity.x = VELOCITY;
   }
 
-  totalDelta = totalDelta + delta;
   
+
+
 
 
 }

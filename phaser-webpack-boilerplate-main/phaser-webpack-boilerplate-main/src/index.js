@@ -13,7 +13,7 @@ const config = {
     default: 'arcade',
     arcade: {
       debug: true,
-      gravity: { y: 400 },
+      // gravity: { y: 400 },
     }
   },
   scene: {
@@ -32,7 +32,7 @@ function preload() {
 
   this.load.image('bird', 'assets/bird.png');
 
-  
+  this.load.image('pipe', 'assets/pipe.png');
 
 }
 
@@ -41,6 +41,8 @@ const VELOCITY = 200;
 const flapVelocity = 150;
 const initialBirdPosition = { x: config.width / 16, y: config.height / 2 };
 let bird = null;
+let upperPipe = null;
+let lowerPipe = null;
 let totalDelta = null;
 
 
@@ -50,7 +52,17 @@ function create() {
 
   bird = this.physics.add.sprite(initialBirdPosition.x, initialBirdPosition.y, 'bird').setOrigin(0);
   
+  // add gravity to the bird
+  bird.body.gravity.y = 400;
+  
+  
   // bird.body.velocity.x = VELOCITY;
+
+
+  upperPipe = this.physics.add.sprite(400, 100, 'pipe').setOrigin(0,1);
+
+  lowerrPipe = this.physics.add.sprite(400, upperPipe.y + 100, 'pipe').setOrigin(0,0);
+
 
 
   // pressing mouse button

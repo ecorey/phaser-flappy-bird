@@ -30,10 +30,9 @@ class PlayScene extends Phaser.Scene {
 
 
     preload(){
+
         this.load.image('sky', 'assets/sky.png');
-
         this.load.image('bird', 'assets/bird.png');
-
         this.load.image('pipe', 'assets/pipe.png');
 
     }
@@ -48,7 +47,6 @@ class PlayScene extends Phaser.Scene {
         this.createPipes();
         this.handleInputs();
         
-        
     }
 
 
@@ -57,10 +55,7 @@ class PlayScene extends Phaser.Scene {
     update() {
 
         this.checkBirdGameStatus();
-        
-        // recycles pipes in the group
         this.recyclePipes();
-
 
     }
 
@@ -90,12 +85,9 @@ class PlayScene extends Phaser.Scene {
             const upperPipe = this.pipes.create(0, 0, 'pipe').setOrigin(0,1);
             const lowerPipe = this.pipes.create(0, 0, 'pipe').setOrigin(0,0);
 
-            
-
             this.placePipe(upperPipe, lowerPipe)
 
         }
-
         
         this.pipes.setVelocityX(-200);
     }
@@ -105,16 +97,16 @@ class PlayScene extends Phaser.Scene {
 
 
     handleInputs() {
+
         // pressing mouse button
         this.input.on('pointerdown', this.flap, this);
-
-
         // pressing space bar
         this.input.keyboard.on('keydown_SPACE', this.flap, this);
     }
 
 
     checkBirdGameStatus() {
+
         if( this.bird.y > this.config.height || this.bird.y < -this.bird.height) {
             this.restartBirdPosition();
           }
@@ -134,20 +126,14 @@ class PlayScene extends Phaser.Scene {
         
         const pipeHorizontalDistance = Phaser.Math.Between(...this.pipeHorizontalDistanceRange);
     
-    
-    
-    
         // upperPipe = this.physics.add.sprite(pipeHorizontalDistance, pipeVerticalPosition, 'pipe').setOrigin(0,1);
         // lowerPipe = this.physics.add.sprite(upperPipe.x, upperPipe.y + pipeVerticalDistance, 'pipe').setOrigin(0,0);
       
         uPipe.x = rightMostX + pipeHorizontalDistance;
         uPipe.y = pipeVerticalPosition;
-        
-    
+
         lPipe.x = uPipe.x;
         lPipe.y = uPipe.y + pipeVerticalDistance;
-        
-    
         
     }
 
@@ -160,15 +146,14 @@ class PlayScene extends Phaser.Scene {
     
         this.pipes.getChildren().forEach(pipe => {
     
-        if(pipe.getBounds().right <= 0){
-            // get upper and lower pipe that are out of bounds
-            tempPipes.push(pipe);
-            if(tempPipes.length == 2) {
-            this.placePipe(...tempPipes);
-            }
+            if(pipe.getBounds().right <= 0){
+                // get upper and lower pipe that are out of bounds
+                tempPipes.push(pipe);
+                if(tempPipes.length == 2) {
+                this.placePipe(...tempPipes);
+                }
     
-            
-        }
+            }
     
         })
     
@@ -185,17 +170,10 @@ class PlayScene extends Phaser.Scene {
         this.pipes.getChildren().forEach(function (pipe){
         rightMostX = Math.max(pipe.x, rightMostX);
         })
-    
-    
+
         return rightMostX;
-    
-    
+
     }
-    
-    
-    
-    
-    
     
     
     // to make the bird flap
@@ -203,33 +181,19 @@ class PlayScene extends Phaser.Scene {
         this.bird.body.velocity.y = -this.flapVelocity;
     }
     
-    
-    
-    
+
     // restart the bird position to the initial position
     restartBirdPosition() {
     
         this.bird.x = this.config.startPosition.x;
         this.bird.y = this.config.startPosition.y;
-    
         this.bird.body.velocity.y = 0;
         
-    
     }
         
 
 
-
-    
-
-
-
-
 }
-
-
-
-
 
 
 

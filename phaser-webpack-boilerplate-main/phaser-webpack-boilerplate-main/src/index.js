@@ -24,7 +24,7 @@ const config = {
       debug: true,
     }
   },
-  scene: [new PreloadScene(SHARED_CONFIG), new MenuScene(SHARED_CONFIG), new PlayScene(SHARED_CONFIG)]
+  scene: [ PreloadScene, new MenuScene(SHARED_CONFIG), new PlayScene(SHARED_CONFIG)]
 }
 
 

@@ -69,9 +69,15 @@ class PlayScene extends Phaser.Scene {
 
 
     createPause(){
-        this.add.image(this.config.width - 10, this.config.height - 10, 'pause')
+        const pauseButton = this.add.image(this.config.width - 10, this.config.height - 10, 'pause')
+        .setInteractive()
         .setOrigin(1)
         .setScale(3);
+
+
+        pauseButton.on('pointerdown', () => {
+            alert('Game Paused');
+        })
     }
 
 

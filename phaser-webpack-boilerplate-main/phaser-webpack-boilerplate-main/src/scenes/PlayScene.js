@@ -19,8 +19,8 @@ class PlayScene extends Phaser.Scene {
         this.pipes = null;
 
         this.pipeHorizontalDistance = 0;
-        this.pipeVerticalDistanceRange = [150, 250];
-        this.pipeHorizontalDistanceRange = [500, 600];
+        this.pipeVerticalDistanceRange = [100, 150];
+        this.pipeHorizontalDistanceRange = [500, 550];
         this.flapVelocity = 150;
 
     }
@@ -96,7 +96,7 @@ class PlayScene extends Phaser.Scene {
 
         }
         
-        this.pipes.setVelocityX(-200);
+        this.pipes.setVelocityX(-400);
     }
 
 

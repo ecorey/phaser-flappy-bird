@@ -26,7 +26,7 @@ const config = {
 
 
 const VELOCITY = 200;
-const PIPES_TO_RENDER = 114;
+const PIPES_TO_RENDER = 4;
 
 let bird = null;
 let pipes = null;
@@ -112,6 +112,10 @@ function update(time, delta) {
     restartBirdPosition();
   }
 
+
+  // recycles pipes in the group
+  recyclePipes();
+
   
 }
 
@@ -144,6 +148,23 @@ function update(time, delta) {
 //   }
 
 // }
+
+
+
+// recycle pipes
+function recyclePipes() {
+
+  pipes.getChildren().forEach(pipe => {
+
+    if(pipe.getBounds().right <= 0){
+      // recycle pipe
+
+    }
+
+  })
+
+}
+
 
 
 

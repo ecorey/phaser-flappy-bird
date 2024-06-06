@@ -154,11 +154,18 @@ function update(time, delta) {
 // recycle pipes
 function recyclePipes() {
 
+  const tempPipes = [];
+
   pipes.getChildren().forEach(pipe => {
 
     if(pipe.getBounds().right <= 0){
-      // recycle pipe
+      // get upper and lower pipe that are out of bounds
+      tempPipes.push(pipe);
+      if(tempPipes.length == 2) {
+        placePipe(...tempPipes);
+      }
 
+      
     }
 
   })

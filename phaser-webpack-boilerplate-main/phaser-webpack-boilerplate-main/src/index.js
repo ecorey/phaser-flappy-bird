@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-
+import PlayScene from './scenes/PlayScene';
 
 
 
@@ -16,11 +16,7 @@ const config = {
       // gravity: { y: 400 },
     }
   },
-  scene: {
-    preload,
-    create,
-    update
-  }
+  scene: [PlayScene]
 }
 
 

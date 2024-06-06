@@ -175,6 +175,7 @@ class PlayScene extends Phaser.Scene {
                 if(tempPipes.length == 2) {
                 this.placePipe(...tempPipes);
                 this.increaseScore();
+                this.saveBestScore();
                 }
     
             }
@@ -204,6 +205,17 @@ class PlayScene extends Phaser.Scene {
     flap() {
         this.bird.body.velocity.y = -this.flapVelocity;
     }
+
+
+    saveBestScore() {
+        const bestScoreText =  localStorage.getItem('bestScore');
+        const bestScore = bestScoreText && parseInt(bestScoreText, 10);
+
+        if(!bestScore || this.score > bestScore) {
+            localStorage.setItem('bestScore', this.score);
+        }
+
+    }
     
 
     // restart the bird position to the initial position
@@ -216,13 +228,7 @@ class PlayScene extends Phaser.Scene {
         this.physics.pause();
         this.bird.setTint(0xff0000);
 
-        const bestScoreText =  localStorage.getItem('bestScore');
-        const bestScore = bestScoreText && parseInt(bestScoreText, 10);
-
-        if(!bestScore || this.score > bestScore) {
-            localStorage.setItem('bestScore', this.score);
-        }
-
+        this.saveBestScore();
 
         this.time.addEvent({
             delay: 1000, 

@@ -1,22 +1,28 @@
 import Phaser from 'phaser';
 import PlayScene from './scenes/PlayScene';
 
+const WIDTH = 800;
+const HEIGHT = 600;
+const BIRD_POSITION = { x: WIDTH * 0.1, y: HEIGHT / 2 };
 
+const SHARED_CONFIG = {
+  width: WIDTH,
+  height: HEIGHT,
+  startPosition: BIRD_POSITION
+}
 
 const config = {
   // webGL
   type: Phaser.AUTO,
-  width: 800, 
-  height: 600,
+  ...SHARED_CONFIG,
   physics: {
     // arcade physics plugin
     default: 'arcade',
     arcade: {
       debug: true,
-      // gravity: { y: 400 },
     }
   },
-  scene: [PlayScene]
+  scene: [new PlayScene(SHARED_CONFIG)]
 }
 
 
@@ -28,7 +34,6 @@ let bird = null;
 let pipes = null;
 
 
-let pipeHorizontalDistance = 0;
 
 const pipeVerticalDistanceRange = [150, 250];
 const pipeHorizontalDistanceRange = [500, 600];
@@ -39,7 +44,6 @@ const initialBirdPosition = { x: config.width / 16, y: config.height / 2 };
 
 
 
-let totalDelta = null;
 
 
 

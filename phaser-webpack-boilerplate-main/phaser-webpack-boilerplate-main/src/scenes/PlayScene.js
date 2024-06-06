@@ -76,7 +76,8 @@ class PlayScene extends Phaser.Scene {
 
 
         pauseButton.on('pointerdown', () => {
-            alert('Game Paused');
+            this.physics.pause();
+            this.scene.pause();
         })
     }
 

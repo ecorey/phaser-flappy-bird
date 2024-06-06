@@ -45,6 +45,7 @@ class PlayScene extends Phaser.Scene {
         this.createBG();
         this.createBird();
         this.createPipes();
+        this.createColliders();
         this.handleInputs();
         
     }
@@ -189,6 +190,12 @@ class PlayScene extends Phaser.Scene {
         this.bird.y = this.config.startPosition.y;
         this.bird.body.velocity.y = 0;
         
+    }
+
+
+
+    createColliders() {
+        this.physics.add.collider(this.bird, this.pipes, this.restartBirdPosition, null, this);
     }
         
 

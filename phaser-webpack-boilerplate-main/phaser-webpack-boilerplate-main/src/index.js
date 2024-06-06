@@ -26,10 +26,7 @@ const config = {
 
 
 const VELOCITY = 200;
-const PIPES_TO_RENDER = 4;
-
-const flapVelocity = 150;
-const initialBirdPosition = { x: config.width / 16, y: config.height / 2 };
+const PIPES_TO_RENDER = 114;
 
 let bird = null;
 let pipes = null;
@@ -37,13 +34,17 @@ let pipes = null;
 
 let pipeHorizontalDistance = 0;
 
-let pipeOpeningDistanceRange = [100, 250];
-// sets a random variable in the range given
+const pipeVerticalDistanceRange = [150, 250];
+const pipeHorizontalDistanceRange = [500, 600];
+
+const flapVelocity = 150;
+const initialBirdPosition = { x: config.width / 16, y: config.height / 2 };
 
 
 
 
 let totalDelta = null;
+
 
 
 
@@ -149,34 +150,51 @@ function update(time, delta) {
 // to place pipe
 function placePipe(uPipe, lPipe) {
 
-    pipeHorizontalDistance += 400;
-
+    // pipeHorizontalDistance += 400;
     // pipeHorizontalDistance = getRightMostPipe();
 
-    let pipeVerticalDistance = Phaser.Math.Between(pipeOpeningDistanceRange[0], pipeOpeningDistanceRange[1]);
-    let pipeVerticalPosition = Phaser.Math.Between(0 + 20, config.height - 20 - pipeVerticalDistance);
+    const rightMostX = getRightMostPipe();
+
+    const pipeVerticalDistance = Phaser.Math.Between(...pipeVerticalDistanceRange);
+    const pipeVerticalPosition = Phaser.Math.Between(0 + 20, config.height - 20 - pipeVerticalDistance);
+    
+    const pipeHorizontalDistance = Phaser.Math.Between(...pipeHorizontalDistanceRange);
+
+
+
 
     // upperPipe = this.physics.add.sprite(pipeHorizontalDistance, pipeVerticalPosition, 'pipe').setOrigin(0,1);
     // lowerPipe = this.physics.add.sprite(upperPipe.x, upperPipe.y + pipeVerticalDistance, 'pipe').setOrigin(0,0);
   
+    uPipe.x = rightMostX + pipeHorizontalDistance;
     uPipe.y = pipeVerticalPosition;
-    uPipe.x = pipeHorizontalDistance;
+    
 
     lPipe.x = uPipe.x;
     lPipe.y = uPipe.y + pipeVerticalDistance;
-
-
     
 
-   
-
+    
 }
 
 
+// get right most pipe
 function getRightMostPipe() {
 
-  
+  let rightMostX = 0;
+
+  pipes.getChildren().forEach(function (pipe){
+    rightMostX = Math.max(pipe.x, rightMostX);
+  })
+
+
+  return rightMostX;
+
+
 }
+
+
+
 
 
 

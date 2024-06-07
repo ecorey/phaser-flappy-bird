@@ -164,6 +164,10 @@ class PlayScene extends BaseScene {
         .setFlipX(true)
         .setOrigin(0)
         .setScale(3);
+
+        this.bird.setBodySize(this.bird.width, this.bird.height - 8)
+
+
         this.bird.body.gravity.y = 600;
         this.bird.setCollideWorldBounds(true);
     }

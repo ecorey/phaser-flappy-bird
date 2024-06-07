@@ -16,11 +16,12 @@ class PlayScene extends BaseScene {
 
         this.bird = null;
         this.pipes = null;
+        this.isPaused = false;
 
         this.pipeHorizontalDistance = 0;
         this.pipeVerticalDistanceRange = [100, 150];
         this.pipeHorizontalDistanceRange = [500, 550];
-        this.flapVelocity = 150;
+        this.flapVelocity = 250;
 
         this.score = 0;
         this.scoreText = '';
@@ -63,7 +64,7 @@ class PlayScene extends BaseScene {
     listenToEvents() {
 
         if(this.pauseEvent) { return; }
-        
+
         this.pauseEvent = this.events.on('resume', () => {
             this.initialTime =  3;
             this.countDownText = this.add.text(...this.screenCenter, `fly in ${this.initialTime}`, this.fontOptions)
@@ -86,6 +87,7 @@ class PlayScene extends BaseScene {
 
         this.countDownText.setText(`Fly in ${this.initialTime}`);
         if (this.initialTime <= 0) {
+            this.isPaused = false;
             this.countDownText.setText('');
             this.physics.resume();
             this.timedEvent.remove();
@@ -94,6 +96,7 @@ class PlayScene extends BaseScene {
 
 
     createPause(){
+        this.isPaused = false;
         const pauseButton = this.add.image(this.config.width - 10, this.config.height - 10, 'pause')
         .setInteractive()
         .setOrigin(1)
@@ -101,6 +104,7 @@ class PlayScene extends BaseScene {
 
 
         pauseButton.on('pointerdown', () => {
+            this.isPaused = true;
             this.physics.pause();
             this.scene.pause();
             this.scene.launch('PauseScene');
@@ -127,7 +131,7 @@ class PlayScene extends BaseScene {
 
     createBird() {
         this.bird = this.physics.add.sprite(this.config.startPosition.x, this.config.startPosition.y, 'bird').setOrigin(0);
-        this.bird.body.gravity.y = 400;
+        this.bird.body.gravity.y = 600;
         this.bird.setCollideWorldBounds(true);
     }
 
@@ -246,6 +250,7 @@ class PlayScene extends BaseScene {
 
     // to make the bird flap
     flap() {
+        if(this.isPaused) { return; }
         this.bird.body.velocity.y = -this.flapVelocity;
     }
 

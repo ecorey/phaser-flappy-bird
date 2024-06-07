@@ -31,7 +31,7 @@ const config = {
     // arcade physics plugin
     default: 'arcade',
     arcade: {
-      debug: true,
+      debug: false,
     }
   },
   scene: initScenes()

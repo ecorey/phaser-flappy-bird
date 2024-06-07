@@ -55,7 +55,9 @@ class PlayScene extends BaseScene {
 
 
     create(){
+
         this.currentDifficulty = 'easy';
+
         super.create();
         this.createBird();
         this.createPipes();
@@ -64,7 +66,18 @@ class PlayScene extends BaseScene {
         this.createPause();
         this.handleInputs();
         this.listenToEvents();
+
+        this.anims.create({
+            key: 'fly',
+            frames: this.anims.generateFrameNumbers('bird', {start: 9, end: 15}),
+            // 20 fps rate default, 25 frames in 1 second (8 frames in 1 second)
+            frameRate: 8,
+            repeat: -1
+        })
+
+        this.bird.play('fly');
         
+
     }
 
 

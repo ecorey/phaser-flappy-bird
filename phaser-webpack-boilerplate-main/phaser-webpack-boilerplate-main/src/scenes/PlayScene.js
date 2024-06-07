@@ -204,10 +204,12 @@ class PlayScene extends Phaser.Scene {
     }
     
     
+
     // to make the bird flap
     flap() {
         this.bird.body.velocity.y = -this.flapVelocity;
     }
+
 
 
     saveBestScore() {
@@ -251,6 +253,8 @@ class PlayScene extends Phaser.Scene {
         this.physics.add.collider(this.bird, this.pipes, this.restartBirdPosition, null, this);
     }
 
+
+    
 
     increaseScore(){
         this.score++;

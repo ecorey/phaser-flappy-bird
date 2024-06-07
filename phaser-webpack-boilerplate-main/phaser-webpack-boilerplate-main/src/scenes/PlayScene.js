@@ -25,6 +25,11 @@ class PlayScene extends BaseScene {
         this.score = 0;
         this.scoreText = '';
 
+        // this.initialTime = 3; 
+        this.countdownText = "";
+
+        this.initialTime = 3;
+
 
     }
 
@@ -40,6 +45,7 @@ class PlayScene extends BaseScene {
         this.createScore();
         this.createPause();
         this.handleInputs();
+        this.listenToEvents();
         
     }
 
@@ -51,6 +57,39 @@ class PlayScene extends BaseScene {
         this.checkBirdGameStatus();
         this.recyclePipes();
 
+    }
+
+
+    listenToEvents() {
+
+        if(this.pauseEvent) { return; }
+        
+        this.pauseEvent = this.events.on('resume', () => {
+            this.initialTime =  3;
+            this.countDownText = this.add.text(...this.screenCenter, `fly in ${this.initialTime}`, this.fontOptions)
+            .setOrigin(0.5);
+
+            this.timedEvent = this.time.addEvent({
+                delay: 1000,
+                callback: this.countDown,
+                callbackScope: this,
+                loop: true,
+            })
+        })
+
+    }
+
+
+    countDown() {
+
+        this.initialTime--;
+
+        this.countDownText.setText(`Fly in ${this.initialTime}`);
+        if (this.initialTime <= 0) {
+            this.countDownText.setText('');
+            this.physics.resume();
+            this.timedEvent.remove();
+          }
     }
 
 

@@ -1,4 +1,3 @@
-import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 import BaseScene from './BaseScene';
 
 
@@ -50,7 +49,7 @@ class MenuScene extends BaseScene {
             menuItem.scene && this.scene.start(menuItem.scene);
 
 
-            
+
 
             if(menuItem.text === 'Exit'){
                 this.game.destroy(true);

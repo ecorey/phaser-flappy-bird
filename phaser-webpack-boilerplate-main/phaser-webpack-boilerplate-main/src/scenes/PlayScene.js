@@ -19,12 +19,29 @@ class PlayScene extends BaseScene {
         this.isPaused = false;
 
         this.pipeHorizontalDistance = 0;
-        this.pipeVerticalDistanceRange = [100, 150];
-        this.pipeHorizontalDistanceRange = [500, 550];
+        
         this.flapVelocity = 250;
 
         this.score = 0;
         this.scoreText = '';
+
+
+        this.currentDifficulty = 'easy';
+        this.difficulties = {
+            'easy': {
+                pipeHorizontalDistanceRange: [1000, 1450],
+                pipeVerticalDistanceRange: [95, 350],
+            },
+            'normal': {
+                pipeHorizontalDistanceRange: [500, 650],
+                pipeVerticalDistanceRange: [95, 200],
+            },
+            'hard': {
+                pipeHorizontalDistanceRange: [400, 450],
+                pipeVerticalDistanceRange: [120, 170],
+            }
+        }
+
 
         // this.initialTime = 3; 
         this.countdownText = "";
@@ -38,7 +55,7 @@ class PlayScene extends BaseScene {
 
 
     create(){
-
+        this.currentDifficulty = 'easy';
         super.create();
         this.createBird();
         this.createPipes();
@@ -185,15 +202,17 @@ class PlayScene extends BaseScene {
 
     placePipe(uPipe, lPipe) {
 
+        const difficulty = this.difficulties[this.currentDifficulty];
+
         // pipeHorizontalDistance += 400;
         // pipeHorizontalDistance = getRightMostPipe();
     
         const rightMostX = this.getRightMostPipe();
     
-        const pipeVerticalDistance = Phaser.Math.Between(...this.pipeVerticalDistanceRange);
+        const pipeVerticalDistance = Phaser.Math.Between(...difficulty.pipeVerticalDistanceRange);
         const pipeVerticalPosition = Phaser.Math.Between(0 + 20, this.config.height - 20 -pipeVerticalDistance);
         
-        const pipeHorizontalDistance = Phaser.Math.Between(...this.pipeHorizontalDistanceRange);
+        const pipeHorizontalDistance = Phaser.Math.Between(...difficulty.pipeHorizontalDistanceRange);
     
         // upperPipe = this.physics.add.sprite(pipeHorizontalDistance, pipeVerticalPosition, 'pipe').setOrigin(0,1);
         // lowerPipe = this.physics.add.sprite(upperPipe.x, upperPipe.y + pipeVerticalDistance, 'pipe').setOrigin(0,0);
@@ -222,6 +241,7 @@ class PlayScene extends BaseScene {
                 this.placePipe(...tempPipes);
                 this.increaseScore();
                 this.saveBestScore();
+                this.increaseDifficulty();
                 }
     
             }
@@ -231,6 +251,17 @@ class PlayScene extends BaseScene {
     }
 
 
+    increaseDifficulty() {
+
+        if(this.score == 3){
+            this.currentDifficulty = 'normal';
+        }
+
+        if(this.score == 7){
+            this.currentDifficulty = 'hard';
+        }
+
+    }
 
     
     // get right most pipe

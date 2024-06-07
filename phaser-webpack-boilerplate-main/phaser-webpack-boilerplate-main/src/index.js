@@ -26,6 +26,7 @@ const config = {
   // webGL
   type: Phaser.AUTO,
   ...SHARED_CONFIG,
+  pixelArt: true,
   physics: {
     // arcade physics plugin
     default: 'arcade',
